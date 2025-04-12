@@ -8,7 +8,7 @@
 const { OpenAI } = require('openai');
 
 exports.handler = async function(event, context) {
-  // Only allow POST requests
+  // Only allow POST requests for security and proper API usage
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -17,10 +17,11 @@ exports.handler = async function(event, context) {
   }
 
   try {
-    // Parse the incoming request body
+    // Parse the incoming request body to extract the user's message
     const requestBody = JSON.parse(event.body);
     const userMessage = requestBody.message;
     
+    // Validate that a message was provided
     if (!userMessage) {
       return {
         statusCode: 400,
@@ -28,12 +29,14 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Initialize the OpenAI client
+    // Initialize the OpenAI client with API key from environment variables
+    // IMPORTANT: Make sure to set OPENAI_API_KEY in your Netlify environment variables
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
 
-    // Prepare the conversation for the API call
+    // Prepare the conversation with system instructions and user message
+    // The system message defines the AI's persona and behavioral guidelines
     const conversation = [
       {
         role: 'system',
@@ -45,15 +48,15 @@ exports.handler = async function(event, context) {
       }
     ];
 
-    // Call the OpenAI API
+    // Call the OpenAI Chat Completions API with our conversation
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4o', // Using the GPT-4o model for high-quality responses
       messages: conversation,
-      temperature: 0.7,
-      max_tokens: 800,
+      temperature: 0.7, // Setting a balanced temperature for creativity vs consistency
+      max_tokens: 800, // Limiting response length to prevent excessively long messages
     });
 
-    // Return the AI's response
+    // Return a successful response with the AI's reply
     return {
       statusCode: 200,
       headers: {
@@ -66,9 +69,10 @@ exports.handler = async function(event, context) {
       }),
     };
   } catch (error) {
+    // Log the error for debugging in Netlify's function logs
     console.error('Error processing chat request:', error);
     
-    // Return an error response
+    // Return a user-friendly error message without exposing technical details
     return {
       statusCode: 500,
       body: JSON.stringify({ 
