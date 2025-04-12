@@ -1,7 +1,3 @@
-Below is a concise **Product Requirements Document (PRD)** for the Talentspring AI Career Coach MVP, formatted as a `.md` file suitable for use with Windsurf. It outlines the features you specified, aligns with your tech stack (Tailwind, Node.js, ChatGPT API), and ensures clarity for rapid development. I’ve kept it focused on the simple chat interface, system prompt for job-related guidance, and no account/login or conversation history, as requested. Everything is clear, but I’ve made assumptions about minor details (e.g., basic UI layout) to keep it actionable—let me know if you want to tweak anything.
-
----
-
 # Talentspring AI Career Coach MVP - Product Requirements Document
 
 ## Overview
@@ -13,7 +9,7 @@ Below is a concise **Product Requirements Document (PRD)** for the Talentspring 
 **Tech Stack**:  
 - **Frontend**: Tailwind CSS (for styling a responsive chat interface).  
 - **Backend**: Node.js (to handle API calls to the LLM).  
-- **LLM**: ChatGPT API (OpenAI, e.g., GPT-4o-mini for cost-efficiency).  
+- **LLM**: ChatGPT API (OpenAI, e.g., GPT-4o).  
 - **Tools**: Windsurf (for UI prototyping), GitHub (version control), Netlify (deployment).  
 
 ## Scope
@@ -50,7 +46,7 @@ Out-of-scope for MVP (future iterations):
 ### 2. ChatGPT API Integration
 - **Description**: The backend connects user inputs to the ChatGPT API (via Node.js) and returns AI-generated responses to the frontend.  
 - **Features**:  
-  - **API Call**: Send user input to ChatGPT API (e.g., GPT-4o-mini) and retrieve responses.  
+  - **API Call**: Send user input to ChatGPT API and retrieve responses.  
   - **System Prompt**: Configure the API with a tailored prompt to ensure relevant, actionable career coaching, e.g.:  
     ```
     You are Talentspring AI Career Coach, a supportive and expert assistant for job seekers. Provide concise, practical advice on job-related topics like resume writing, interview preparation, salary negotiations, cover letters, and job search strategies. Tailor responses to the user’s question, offer specific examples (e.g., “For a resume, quantify achievements like ‘Increased sales by 15%’”), and ask clarifying questions if the input is vague (e.g., “Can you share the job role you’re targeting?”). Use an encouraging tone and avoid generic advice.
@@ -92,7 +88,7 @@ Out-of-scope for MVP (future iterations):
 
 ## Assumptions
 
-- The ChatGPT API uses GPT-4o-mini for cost-efficiency, but can switch to another model if preferred.  
+- The ChatGPT API uses GPT-4o, but can switch to another model if preferred.  
 - No external data sources (e.g., job listings) are needed; the LLM generates advice based on its training and the system prompt.  
 - Basic Tailwind styling is sufficient (no custom animations or complex UI beyond the chat).  
 - Netlify handles deployment; no custom domain is required for MVP.  
